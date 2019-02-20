@@ -2,7 +2,7 @@
 
 dir="$HOME/modul1"
 
-if [[ ! $HOMEmodul1  ]];  then 
+if [[  ! -d  "$HOME/modul1"  ]];  then 
    mkdir $dir
 fi
 
