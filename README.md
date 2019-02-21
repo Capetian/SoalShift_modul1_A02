@@ -48,8 +48,29 @@ Agar skrip tersebut dijalankan pada pukul 14:14 pada tanggal 14 Februari atau ha
 2.	Anda merupakan pegawai magang pada sebuah perusahaan retail, dan anda diminta untuk memberikan laporan berdasarkan file WA_Sales_Products_2012-14.csv. Laporan yang diminta berupa:
 a.	Tentukan negara dengan penjualan(quantity) terbanyak pada tahun 2012.
 b.	Tentukan tiga product line yang memberikan penjualan(quantity) terbanyak pada soal poin a.
-c.	Tentukan tiga product yang memberikan penjualan(quantity) terbanyak berdasarkan tiga product line yang didapatkan pada soal poin b.
+c.	Tentukan tiga product yang memberikan penjualan(quantity) terbanyak berdasarkan tiga product line yang didapatkan pada soal poin b
 
+Untuk memilih negara dengan penjualannya kita bisa menggunakan fungsi berikut :
+
+	awk -F ',' '{ if ($7=="2012") a[$1]+=$10} END {for(x in a)print a[x] " " x}' WA_Sales_Products_2012-14.csv
+
+Untuk melakukan sorting kita menggunakan ini dengan melakukan pipe terhadap fungsi sebelumnya :
+
+	sort -n
+	
+Lalu agar kita bisa memilih yang menmiliki penjualan paling tinggi kita menggunakan :
+
+	tail -1	
+	
+untuk menentukan product line untuk soal 2b hampir sama tetapi ditambahkan ketentuan tambahan yaitu hasil dari soal no 2a dan mengubah tail -1 menjadi tail -3 unyuk mengambil 3 product line :
+	
+	awk -F ',' '{ if ($7=="2012" && $1=="United States") a[$4]+=$10} END {for(x in a)print a[x] " " x}' WA_Sales_Products_2012-14.csv | sort -n | tail -3
+
+untuk yang 2c juga sama yaitu menambahkan hasil dari jawaban soal 2b menjadi ketentuan untuk mencari product yang diinginkan :
+
+	awk -F ',' '{ if ($7=="2012" && $1=="United States" && ($4=="Outdoor Protection" || $4=="Camping Equipment" || $4=="Personal Accessories")) a[$6]+=$10} END {for(x in a)print a[x] " " x}' WA_Sales_Products_2012-14.csv | sort -n | tail -3
+
+	
 3.	Buatlah sebuah script bash yang dapat menghasilkan password secara acak sebanyak 12 karakter yang terdapat huruf besar, huruf kecil, dan angka. Password acak tersebut disimpan pada file berekstensi .txt dengan ketentuan pemberian nama sebagai berikut:
 a.	Jika tidak ditemukan file password1.txt maka password acak tersebut disimpan pada file bernama password1.txt
 b.	Jika file password1.txt sudah ada maka password acak baru akan disimpan pada file bernama password2.txt dan begitu seterusnya.
@@ -139,6 +160,33 @@ c.	setelah huruf z akan kembali ke huruf a
 d.	Backup file syslog setiap jam.
 e.	dan buatkan juga bash script untuk dekripsinya.
 
+untuk meng enkripsi isi dari syslog dapat menggunakan fungsi berikut yang memanfaatkan caesar cipher :
+
+	a=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
+	b=ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
+	string=$(echo "$(cat /var/log/syslog)")
+	plus=$(cat jam.txt)
+	jam=$(cat jamu.txt)
+	tgl=$(cat tgl.txt)
+	newstring=$(echo $string | tr "${a:0:26}" "${a:${plus}:26}")
+	newstring=$(echo $newstring | tr "${b:0:26}" "${b:${plus}:26}")
+	echo ${newstring} > $jam\ $tgl.log
+	
+Fungsi diatas perlu mengetahui jam sistem untuk melakukan enkripsi "plus=$(cat jam.txt)", untuk itu kita menggunakan fungsi berikut untuk mendapatkan jam sistem :
+
+	date | awk -F ":" '{print $1}' | awk '{print $4}' > jam.txt
+	
+Untuk membuat agar format nama file backup syslog menjadi “jam:menit tanggal-bulan-tahun” kita menggunakan fungsi :
+	
+	date | awk '{print $4}' | awk -F ":" '{print $1":"$2}' > jamu.txt
+	date | awk '{print $3"-"$2"-"$6}' > tgl.txt
+lalu kita masukkan .txt hasil fungsi diatas ke fungsi ini :
+
+	echo ${newstring} > $jam\ $tgl.log
+
+untuk melakukan backup file syslog setiap jam bisa melakukan dengan cron berikut :
+
+	0 */1 * * * /bin/bash soal4.sh
 
 Untuk dekripsinya, prinsipnya sama namun $plus = komplemen dari kuncinya. 
 
