@@ -5,7 +5,7 @@ date | awk '{print $4}' | awk -F ":" '{print $1":"$2}' > jamu.txt
 date | awk '{print $3"-"$2"-"$6}' > tgl.txt
 a=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
 b=ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
-string=$(cat /var/log/syslog)
+string=$(echo "$(cat /var/log/syslog)")
 plus=$(cat jam.txt)
 jam=$(cat jamu.txt)
 tgl=$(cat tgl.txt)
