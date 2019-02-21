@@ -4,8 +4,7 @@ Hint: Base64, Hexdump
 
 Jawaban:
 
-Arsip nature.zip tersebut berisi file .jpg yang tidak bisa buka sebagai gambar karena terenkripsi/ter-encode dengan Base64. Jika dibuka di suatu text editor akan terhilat seperti ini:
-
+Arsip nature.zip tersebut berisi file .jpg yang tidak bisa buka sebagai gambar karena terenkripsi/ter-encode dengan Base64. 
 Untuk men-decode file tersebut kita perlu lakukan:
 ```bash
 base64 -di inp.jpg > out.jpg   // -d untuk mendecode -i untuk mengabaikan karakter non-alfabet
@@ -169,10 +168,6 @@ fi
 awk 'tolower($0) ~ /cron/ && !/sudo/ && NF<13' /var/log/syslog >> $dir/log.txt // awk untuk mencari  field di syslog yg sesuai kriteria dan 
                                                                      //dioutputkan ke /home/[user]/modul1
 
-                                                                    // tolower($0) ~ /cron/ - ubah semua field menjadi lower case dan 
-                                                                    //bandingkan dengan cron
-                                                                    //!/sudo/ - field tidak boleh mengandung sudo
-                                                                    //NF<13 – jumlah field kurang dari 13
 ```
 Cronjob yang digunakan adalah sebagai berikut:
 
