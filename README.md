@@ -140,6 +140,34 @@ d.	Backup file syslog setiap jam.
 e.	dan buatkan juga bash script untuk dekripsinya.
 
 
+Untuk dekripsinya, prinsipnya sama namun $plus = komplemen dari kuncinya. 
+Misal: jam pada nama file adalah 12 sehingga kuncinya adalah 12. $plus = komplemen dari kuncinya, maka $plus = 26 - 12 = 13
+Bash script selengkapnya adalah sebagai berikut:
+```bash
+#!/bin/bash
+
+a=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
+b=ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+for file in $PWD/*; do
+  case ${file##*/} in
+    *[0-9][0-9][0-9][0-9].log )                                          // cari semua file dengan nama *tahun.log
+     string=$(echo "$(cat "$PWD/${file##*/}")")                          // dapatkan isi filenya
+     name=${file##*/}                                                    // dapatkan namanya 
+     name=${name:0:17}                                                   // hapus .log pada $name
+     plus=${name:0:2}                                                    // dapatkan kuncinya (jam)
+     plus=$((26-${plus}))                                                // cari komplemen dari kuci
+     newstring=$(echo $string | tr "${a:0:26}" "${a:${plus}:26}")        // lakukan pergeseran sesuai kunci untuk huruf kecil
+     newstring=$(echo $newstring | tr "${b:0:26}" "${b:${plus}:26}")     // lakukan pergeseran sesuai kunci untuk huruf kapital
+     echo ${newstring} > "$name-dec.log"                                 // output disimpan sebagai nama_file-dec.log
+     ;;
+    * )  ;;
+  esac
+done
+```
+
+
+
 5.	Buatlah sebuah script bash untuk menyimpan record dalam syslog yang memenuhi kriteria berikut:
 a.	Tidak mengandung string “sudo”, tetapi mengandung string “cron”, serta buatlah pencarian stringnya tidak bersifat case sensitive, sehingga huruf kapital atau tidak, tidak menjadi masalah.
 b.	Jumlah field (number of field) pada baris tersebut berjumlah kurang dari 13.
