@@ -1,4 +1,5 @@
-# SoalShift_modul1_A02
+# Laporan Penjelasan Soal Shift Modul 1
+
 1.	Anda diminta tolong oleh teman anda untuk mengembalikan filenya yang telah dienkripsi oleh seseorang menggunakan bash script, file yang dimaksud adalah nature.zip. Karena terlalu mudah kalian memberikan syarat akan membuka seluruh file tersebut jika pukul 14:14 pada tanggal 14 Februari atau hari tersebut adalah hari jumat pada bulan Februari.
 Hint: Base64, Hexdump
 
@@ -50,6 +51,8 @@ a.	Tentukan negara dengan penjualan(quantity) terbanyak pada tahun 2012.
 b.	Tentukan tiga product line yang memberikan penjualan(quantity) terbanyak pada soal poin a.
 c.	Tentukan tiga product yang memberikan penjualan(quantity) terbanyak berdasarkan tiga product line yang didapatkan pada soal poin b
 
+Jawaban:
+
 Untuk memilih negara dengan penjualannya kita bisa menggunakan fungsi berikut :
 
 	awk -F ',' '{ if ($7=="2012") a[$1]+=$10} END {for(x in a)print a[x] " " x}' WA_Sales_Products_2012-14.csv
@@ -76,6 +79,8 @@ a.	Jika tidak ditemukan file password1.txt maka password acak tersebut disimpan 
 b.	Jika file password1.txt sudah ada maka password acak baru akan disimpan pada file bernama password2.txt dan begitu seterusnya.
 c.	Urutan nama file tidak boleh ada yang terlewatkan meski filenya dihapus.
 d.	Password yang dihasilkan tidak boleh sama.
+
+Jawaban:
 
 Password dapat dihasilkan secara random dengan fungsi berikut:
 
@@ -160,7 +165,9 @@ c.	setelah huruf z akan kembali ke huruf a
 d.	Backup file syslog setiap jam.
 e.	dan buatkan juga bash script untuk dekripsinya.
 
-untuk meng enkripsi isi dari syslog dapat menggunakan fungsi berikut yang memanfaatkan caesar cipher :
+Jawaban:
+
+Untuk mengenkripsi isi dari syslog dapat menggunakan fungsi berikut yang memanfaatkan caesar cipher :
 
 	a=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz			//data untuk melakukan ceasar chiper
 	b=ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ			//data untuk melakukan ceasar chiper
@@ -224,6 +231,8 @@ b.	Jumlah field (number of field) pada baris tersebut berjumlah kurang dari 13.
 c.	Masukkan record tadi ke dalam file logs yang berada pada direktori /home/[user]/modul1.
 d.	Jalankan script tadi setiap 6 menit dari menit ke 2 hingga 30, contoh 13:02, 13:08, 13:14, dst.
 
+Jawaban:
+
 Kriteria yang diinginkan dapat dipenuhi dengan awk sebagai berikut:
 ```bash
 awk 'tolower($0) ~ /cron/ && !/sudo/ && NF<13' /var/log/syslog >> $dir/log.txt // awk untuk mencari  field di syslog yg sesuai kriteria dan 
@@ -247,7 +256,7 @@ awk 'tolower($0) ~ /cron/ && !/sudo/ && NF<13' /var/log/syslog >> $dir/log.txt /
                                                                      //dioutputkan ke /home/[user]/modul1
 
 ```
-Cronjob yang digunakan adalah sebagai berikut:
+Cronjob agar script dijalankan setiap 6 menit dari menit ke 2 hingga 30 adalah sebagai berikut:
 
 	2-30/6 * * * bash soal5.sh
 
