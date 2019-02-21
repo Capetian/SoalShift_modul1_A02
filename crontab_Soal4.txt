@@ -1,2 +1,0 @@
-#no.4
-#0 */1 * * * /bin/bash /home/paksi/soal4.sh
