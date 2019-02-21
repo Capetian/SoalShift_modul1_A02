@@ -65,9 +65,10 @@ Password dapat dihasilkan secara random dengan fungsi berikut:
                                                        // head berfungsi spt cat namun kita bisa mengatur berapa karakter yg muncul dengan -c
 
 Password tersebut kemudian dicek jika memeuhi kriteria dengan regex berikut:
-
-	if [[ $pass =~ ^.*[0-9]+.*$ && $pass =~ ^.*[A-Z]+.*$  && $pass =~ ^.*[a-z]+.*$ ]]; //password dicek dengan regex untuk mencek adanya huruf kecil, 
-	                                                                                   //huruf kapital dan angka. 
+```bash
+	if [[ $pass =~ ^.*[0-9]+.*$ && $pass =~ ^.*[A-Z]+.*$  && $pass =~ ^.*[a-z]+.*$ ]]; //password dicek dengan regex untuk mencek adanya huruf kecil (^.*[a-z]+.*$), 
+	                                                                                   //huruf kapital (^.*[A-Z]+.*$) dan angka (^.*[0-9]+.*$). 
+```											  
 Fungsi untuk menghasilkan password yang sesuai adalah sebagai berikut:
 
 ```bash
