@@ -7,9 +7,9 @@ Jawaban:
 Arsip nature.zip tersebut berisi file .jpg yang tidak bisa buka sebagai gambar karena terenkripsi/ter-encode dengan Base64. Jika dibuka di suatu text editor akan terhilat seperti ini:
 
 Untuk men-decode file tersebut kita perlu lakukan:
-
+```bash
 base64 -di inp.jpg > out.jpg   // -d untuk mendecode -i untuk mengabaikan karakter non-alfabet
-
+```
 Namun setelah di-decode file tersebut masih belum bisa dibuka sebagai gambar.Hal ini dikarenakan output program tersebut dalam bentuk hexdump yaitu representasi data dalam bentuk hexadecimal. Agar program image viewer bisa membaca file tersebut sebagai gambar, hexdump tersebut perlu diubah ke bentuk binary dengan reverse hexdump.
 
 Reverse hexdump dapat dilakukan dengan suatu program hexdump yakni xxd. Untuk men-reverse hexdump file tersebut kita perlu lakukan:
