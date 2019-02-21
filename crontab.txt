@@ -5,7 +5,7 @@
 14 14 14 2 5 bash soal1.sh
 
 #no.4
-#0 */1 * * * /bin/bash /home/paksi/soal4.sh
+0 */1 * * * /bin/bash /home/paksi/soal4.sh
 
 #no.5
 2-30/6 * * * bash soal5.sh
