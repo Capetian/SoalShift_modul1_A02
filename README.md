@@ -56,11 +56,11 @@ Untuk memilih negara dengan penjualannya kita bisa menggunakan fungsi berikut :
 
 Untuk melakukan sorting kita menggunakan ini dengan melakukan pipe terhadap fungsi sebelumnya :
 
-	sort -n
+	sort -n 					//melakukan sorting numerik 
 	
 Lalu agar kita bisa memilih negara yang memiliki penjualan paling tinggi kita menggunakan :
 
-	tail -1	
+	tail -1						//mengambil hasil sorting yang paling bawah
 	
 untuk menentukan product line untuk soal 2b hampir sama tetapi ditambahkan ketentuan tambahan yaitu hasil dari soal no 2a dan mengubah tail -1 menjadi tail -3 untuk mengambil 3 product line :
 	
@@ -162,19 +162,19 @@ e.	dan buatkan juga bash script untuk dekripsinya.
 
 untuk meng enkripsi isi dari syslog dapat menggunakan fungsi berikut yang memanfaatkan caesar cipher :
 
-	a=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
-	b=ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
-	string=$(echo "$(cat /var/log/syslog)")
-	plus=$(cat jam.txt)
-	jam=$(cat jamu.txt)
-	tgl=$(cat tgl.txt)
-	newstring=$(echo $string | tr "${a:0:26}" "${a:${plus}:26}")
-	newstring=$(echo $newstring | tr "${b:0:26}" "${b:${plus}:26}")
-	echo ${newstring} > $jam\ $tgl.log
+	a=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz			//data untuk melakukan ceasar chiper
+	b=ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ			//data untuk melakukan ceasar chiper
+	string=$(echo "$(cat /var/log/syslog)")					//mengambil isi syslog lalu menjadikannya isi dari "string"
+	plus=$(cat jam.txt)							//membuat isi jam.txt menjadi isi dari variabel "plus"
+	jam=$(cat jamu.txt)							//membuat isi jamu.txt menjadi isi dari variabel "jam"
+	tgl=$(cat tgl.txt)							//membuat isi tgl.txt menjadi isi dari variabel "tgl"
+	newstring=$(echo $string | tr "${a:0:26}" "${a:${plus}:26}")		//mengubah isi dari "string" (mengenkripsi) lalu membuatnya menjadi "newstring"
+	newstring=$(echo $newstring | tr "${b:0:26}" "${b:${plus}:26}")		//mengubah isi dari "newstring" (mengenkripsi)
+	echo ${newstring} > $jam\ $tgl.log					//menjadikan file .txt 
 	
 Fungsi diatas perlu mengetahui jam sistem untuk melakukan enkripsi "plus=$(cat jam.txt)", untuk itu kita menggunakan fungsi berikut untuk mendapatkan jam sistem :
 
-	date | awk -F ":" '{print $1}' | awk '{print $4}' > jam.txt
+	date | awk -F ":" '{print $1}' | awk '{print $4}' > jam.txt		
 	
 Untuk membuat agar format nama file backup syslog menjadi “jam:menit tanggal-bulan-tahun” kita menggunakan fungsi :
 	
