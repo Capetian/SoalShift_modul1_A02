@@ -62,7 +62,7 @@ Lalu agar kita bisa memilih negara yang memiliki penjualan paling tinggi kita me
 
 	tail -1	
 	
-untuk menentukan product line untuk soal 2b hampir sama tetapi ditambahkan ketentuan tambahan yaitu hasil dari soal no 2a dan mengubah tail -1 menjadi tail -3 unyuk mengambil 3 product line :
+untuk menentukan product line untuk soal 2b hampir sama tetapi ditambahkan ketentuan tambahan yaitu hasil dari soal no 2a dan mengubah tail -1 menjadi tail -3 untuk mengambil 3 product line :
 	
 	awk -F ',' '{ if ($7=="2012" && $1=="United States") a[$4]+=$10} END {for(x in a)print a[x] " " x}' WA_Sales_Products_2012-14.csv | sort -n | tail -3
 
