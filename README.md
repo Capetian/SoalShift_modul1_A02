@@ -58,7 +58,7 @@ Untuk melakukan sorting kita menggunakan ini dengan melakukan pipe terhadap fung
 
 	sort -n
 	
-Lalu agar kita bisa memilih yang menmiliki penjualan paling tinggi kita menggunakan :
+Lalu agar kita bisa memilih negara yang memiliki penjualan paling tinggi kita menggunakan :
 
 	tail -1	
 	
