@@ -141,7 +141,9 @@ e.	dan buatkan juga bash script untuk dekripsinya.
 
 
 Untuk dekripsinya, prinsipnya sama namun $plus = komplemen dari kuncinya. 
-Misal: jam pada nama file adalah 12 sehingga kuncinya adalah 12. $plus = komplemen dari kuncinya, maka $plus = 26 - 12 = 13
+
+Misal: jam pada nama file adalah 12 sehingga kuncinya adalah 12. $plus = komplemen dari kuncinya, maka $plus = 26 - 12 = 13.
+
 Bash script selengkapnya adalah sebagai berikut:
 ```bash
 #!/bin/bash
